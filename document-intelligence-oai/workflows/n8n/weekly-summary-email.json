@@ -1,8 +1,43 @@
 {
   "name": "weekly-summary-email",
   "active": false,
-  "nodes": [],
-  "connections": {},
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 17 * * 5"
+            }
+          ]
+        }
+      },
+      "id": "schedule",
+      "name": "Viernes 5pm MX",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.NEXT_PUBLIC_APP_URL}}/api/modules/laboral/weekly-summary",
+        "sendBody": true,
+        "jsonBody": "{ \"source\": \"n8n\" }"
+      },
+      "id": "call-app",
+      "name": "Generar resumen",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 0]
+    }
+  ],
+  "connections": {
+    "Viernes 5pm MX": {
+      "main": [[{ "node": "Generar resumen", "type": "main", "index": 0 }]]
+    }
+  },
   "settings": {
     "timezone": "America/Mexico_City"
   }

@@ -267,6 +267,9 @@ importers:
 
   packages/shared-notifications:
     dependencies:
+      react:
+        specifier: 19.1.0
+        version: 19.1.0
       resend:
         specifier: ^6.12.3
         version: 6.12.3
@@ -277,6 +280,9 @@ importers:
         specifier: ^3.25.76
         version: 3.25.76
     devDependencies:
+      '@types/react':
+        specifier: ^19.2.14
+        version: 19.2.14
       typescript:
         specifier: ^5.9.3
         version: 5.9.3

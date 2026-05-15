@@ -1,4 +1,5 @@
 import { Upload } from "lucide-react";
+import { DataTable, DocumentDropzone } from "@marvicqui/shared-ui";
 import { Button, PageHeader, StatusBadge } from "@/components/ui-primitives";
 
 const contracts = [
@@ -16,15 +17,21 @@ export default function ContratosPage() {
         description="Pipeline Mastra para extraccion, clasificacion de clausulas, riesgos y resumen ejecutivo."
         action={<Button><Upload className="mr-2 h-4 w-4" />Subir contrato</Button>}
       />
-      <div className="rounded-lg border border-slate-200 bg-white">
-        {contracts.map(([title, risk, tone]) => (
-          <div key={title} className="grid grid-cols-3 items-center gap-4 border-b border-slate-100 px-4 py-3 last:border-b-0">
-            <span className="text-sm font-semibold">{title}</span>
-            <span className="text-sm text-slate-600">{risk}</span>
-            <StatusBadge tone={tone}>{tone === "danger" ? "Alto" : tone === "warning" ? "Medio" : "Bajo"}</StatusBadge>
-          </div>
-        ))}
-      </div>
+      <section className="mb-6">
+        <DocumentDropzone label="Subir contrato PDF o DOCX" accept=".pdf,.docx,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" />
+      </section>
+      <DataTable
+        columns={[
+          { key: "title", label: "Contrato" },
+          { key: "risk", label: "Hallazgo" },
+          { key: "badge", label: "Riesgo" }
+        ]}
+        rows={contracts.map(([title, risk, tone]) => ({
+          title,
+          risk,
+          badge: <StatusBadge tone={tone}>{tone === "danger" ? "Alto" : tone === "warning" ? "Medio" : "Bajo"}</StatusBadge>
+        }))}
+      />
     </>
   );
 }

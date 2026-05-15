@@ -1,8 +1,44 @@
 {
   "name": "daily-compliance-check",
   "active": false,
-  "nodes": [],
-  "connections": {},
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 8 * * *"
+            }
+          ]
+        }
+      },
+      "id": "schedule",
+      "name": "8am MX",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.NEXT_PUBLIC_APP_URL}}/api/modules/laboral/alerts/daily",
+        "authentication": "genericCredentialType",
+        "sendBody": true,
+        "jsonBody": "{ \"source\": \"n8n\" }"
+      },
+      "id": "call-app",
+      "name": "Solicitar alertas",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 0]
+    }
+  ],
+  "connections": {
+    "8am MX": {
+      "main": [[{ "node": "Solicitar alertas", "type": "main", "index": 0 }]]
+    }
+  },
   "settings": {
     "timezone": "America/Mexico_City"
   }

@@ -1,5 +1,8 @@
 import type { ComplianceLevel } from "@marvicqui/shared-db";
 
+export * from "./compliance";
+export * from "./prompts";
+
 export type LaboralDocumentType = "repse" | "sat_32d" | "imss_32d" | "infonavit" | "csf";
 
 export interface LaboralDocumentStatus {

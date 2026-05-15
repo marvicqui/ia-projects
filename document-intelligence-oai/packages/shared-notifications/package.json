@@ -13,11 +13,13 @@
     "test": "vitest run --passWithNoTests"
   },
   "dependencies": {
+    "react": "19.1.0",
     "resend": "^6.12.3",
     "twilio": "^6.0.2",
     "zod": "^3.25.76"
   },
   "devDependencies": {
+    "@types/react": "^19.2.14",
     "typescript": "^5.9.3",
     "vitest": "^4.1.6"
   }

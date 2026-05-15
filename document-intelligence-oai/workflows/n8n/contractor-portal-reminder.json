@@ -1,8 +1,43 @@
 {
   "name": "contractor-portal-reminder",
   "active": false,
-  "nodes": [],
-  "connections": {},
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 * * 1"
+            }
+          ]
+        }
+      },
+      "id": "schedule",
+      "name": "Lunes 9am MX",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1,
+      "position": [0, 0]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "={{$env.NEXT_PUBLIC_APP_URL}}/api/modules/laboral/reminders",
+        "sendBody": true,
+        "jsonBody": "{ \"source\": \"n8n\" }"
+      },
+      "id": "call-app",
+      "name": "Enviar recordatorios",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4,
+      "position": [260, 0]
+    }
+  ],
+  "connections": {
+    "Lunes 9am MX": {
+      "main": [[{ "node": "Enviar recordatorios", "type": "main", "index": 0 }]]
+    }
+  },
   "settings": {
     "timezone": "America/Mexico_City"
   }

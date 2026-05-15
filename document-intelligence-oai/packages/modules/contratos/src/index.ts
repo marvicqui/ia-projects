@@ -1,5 +1,8 @@
 import type { RiskSeverity } from "@marvicqui/shared-db";
 
+export * from "./clauses";
+export * from "./pipeline";
+
 export interface ContractSummary {
   title: string;
   parties: string[];
