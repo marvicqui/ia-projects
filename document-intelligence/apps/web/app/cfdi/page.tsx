@@ -51,8 +51,15 @@ export default async function CfdiHomePage() {
               {(recons ?? []).map((r) => {
                 const s = (r.stats ?? {}) as Record<string, number>;
                 return (
-                  <tr key={r.id} className="border-t border-zinc-200 dark:border-zinc-800">
-                    <td className="px-4 py-2">{r.name}</td>
+                  <tr
+                    key={r.id}
+                    className="border-t border-zinc-200 hover:bg-zinc-50 dark:border-zinc-800 dark:hover:bg-zinc-900"
+                  >
+                    <td className="px-4 py-2">
+                      <Link href={`/cfdi/${r.id}`} className="text-zinc-900 hover:underline dark:text-zinc-100">
+                        {r.name}
+                      </Link>
+                    </td>
                     <td className="px-4 py-2">{r.status}</td>
                     <td className="px-4 py-2 text-right tabular-nums">{s.matchedExact ?? 0}</td>
                     <td className="px-4 py-2 text-right tabular-nums">{s.matchedFuzzy ?? 0}</td>
