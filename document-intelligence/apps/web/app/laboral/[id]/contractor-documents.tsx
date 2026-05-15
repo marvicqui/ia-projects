@@ -157,14 +157,43 @@ const DocCard = ({ contractorId, docType, label, subtitle, status, lastExtractio
         </div>
       )}
 
-      <div className="mt-3">
+      <div className="mt-3 flex gap-2">
         <button
           onClick={onPick}
           disabled={busy}
-          className="w-full rounded-md border border-zinc-300 px-3 py-1.5 text-xs font-medium hover:bg-zinc-50 disabled:opacity-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
+          className="flex-1 rounded-md border border-zinc-300 px-3 py-1.5 text-xs font-medium hover:bg-zinc-50 disabled:opacity-50 dark:border-zinc-700 dark:hover:bg-zinc-900"
         >
           {busy ? progress : lastExtraction ? 'Subir nuevo PDF' : 'Subir PDF'}
         </button>
+        {lastExtraction && (
+          <button
+            onClick={async () => {
+              if (!confirm(`¿Borrar el ${label} actual? Esta acción no se puede deshacer.`)) return;
+              setBusy(true);
+              setError(null);
+              setProgress('Borrando…');
+              try {
+                const res = await fetch(`/api/laboral/extractions/${lastExtraction.id}`, {
+                  method: 'DELETE',
+                });
+                if (!res.ok) {
+                  const j = await res.json();
+                  throw new Error(j.error ?? 'Error');
+                }
+                router.refresh();
+              } catch (err) {
+                setError((err as Error).message);
+              } finally {
+                setBusy(false);
+              }
+            }}
+            disabled={busy}
+            className="shrink-0 rounded-md border border-red-300 px-2 py-1.5 text-xs font-medium text-red-700 hover:bg-red-50 disabled:opacity-50 dark:border-red-900 dark:text-red-400 dark:hover:bg-red-950"
+            title="Borrar este documento"
+          >
+            🗑
+          </button>
+        )}
         <input
           ref={inputRef}
           type="file"
@@ -172,8 +201,8 @@ const DocCard = ({ contractorId, docType, label, subtitle, status, lastExtractio
           onChange={onFile}
           className="hidden"
         />
-        {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
       </div>
+      {error && <p className="mt-2 text-xs text-red-600">{error}</p>}
     </div>
   );
 };

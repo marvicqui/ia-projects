@@ -2,9 +2,10 @@ import { requireAppSession, buildCookieAdapter } from '@/lib/session';
 import { Shell } from '@/components/shell';
 import { createSupabaseServerClient } from '@jvp/shared-db';
 import { notFound } from 'next/navigation';
-import { formatDate, formatDateTime } from '@/lib/dates';
+import { formatDate } from '@/lib/dates';
 import Link from 'next/link';
 import { ContractorDocuments, type DocStatusByType, type ExtractionRow } from './contractor-documents';
+import { ExtractionsHistory } from './extractions-history';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -80,43 +81,7 @@ export default async function ContractorDetailPage({ params }: PageProps) {
 
       <section className="mt-10">
         <h2 className="text-sm font-medium uppercase tracking-wide text-zinc-500">Historial de extracciones</h2>
-        <div className="mt-3 overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-800">
-          <table className="w-full text-sm">
-            <thead className="bg-zinc-50 dark:bg-zinc-900">
-              <tr>
-                <th className="px-3 py-2 text-left font-medium">Fecha subida</th>
-                <th className="px-3 py-2 text-left font-medium">Tipo</th>
-                <th className="px-3 py-2 text-center font-medium">Válido</th>
-                <th className="px-3 py-2 text-center font-medium">Vence</th>
-                <th className="px-3 py-2 text-right font-medium">Conf.</th>
-              </tr>
-            </thead>
-            <tbody>
-              {extractionRows.map((e) => (
-                <tr key={e.id} className="border-t border-zinc-200 dark:border-zinc-800">
-                  <td className="px-3 py-2 text-xs">{formatDateTime(e.created_at)}</td>
-                  <td className="px-3 py-2 font-mono text-xs uppercase">{e.doc_type}</td>
-                  <td className="px-3 py-2 text-center">
-                    {e.valid ? '✓' : <span className="text-red-600">✗</span>}
-                  </td>
-                  <td className="px-3 py-2 text-center text-xs text-zinc-500">
-                    {e.expires_at ? formatDate(e.expires_at) : '—'}
-                  </td>
-                  <td className="px-3 py-2 text-right text-xs tabular-nums">
-                    {(e.confidence * 100).toFixed(0)}%
-                  </td>
-                </tr>
-              ))}
-              {!extractionRows.length && (
-                <tr>
-                  <td colSpan={5} className="px-3 py-6 text-center text-sm text-zinc-500">
-                    Aún no hay documentos subidos para este contratista.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
+        <ExtractionsHistory extractions={extractionRows} />
       </section>
     </Shell>
   );
