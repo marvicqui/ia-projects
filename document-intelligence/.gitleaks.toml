@@ -1,0 +1,11 @@
+title = "JVP Document Intelligence — gitleaks config"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Allow placeholder values in .env.example and docs"
+paths = [
+  '''\.env\.example''',
+  '''docs/.*\.md''',
+]

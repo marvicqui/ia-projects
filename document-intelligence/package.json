@@ -1,0 +1,29 @@
+{
+  "name": "jvp-document-intelligence",
+  "version": "0.1.0",
+  "private": true,
+  "description": "JVP Document Intelligence — Conciliación CFDI, Cumplimiento Laboral MX y Análisis de Contratos",
+  "packageManager": "pnpm@9.12.0",
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  },
+  "scripts": {
+    "dev": "turbo run dev --parallel",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "turbo run test",
+    "test:e2e": "turbo run test:e2e",
+    "clean": "turbo run clean && rm -rf node_modules .turbo",
+    "seed": "tsx scripts/seed.ts",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,sql}\" --ignore-path .gitignore"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "prettier": "^3.4.0",
+    "tsx": "^4.19.0",
+    "turbo": "^2.3.0",
+    "typescript": "^5.7.0"
+  }
+}
