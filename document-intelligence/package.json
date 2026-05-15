@@ -20,10 +20,13 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,sql}\" --ignore-path .gitignore"
   },
   "devDependencies": {
+    "@supabase/supabase-js": "^2.46.0",
     "@types/node": "^22.10.0",
+    "@types/ws": "^8.5.13",
     "prettier": "^3.4.0",
     "tsx": "^4.19.0",
     "turbo": "^2.3.0",
-    "typescript": "^5.7.0"
+    "typescript": "^5.7.0",
+    "ws": "^8.18.0"
   }
 }

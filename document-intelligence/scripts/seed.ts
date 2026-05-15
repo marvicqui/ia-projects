@@ -15,6 +15,7 @@
  */
 
 import { createClient } from '@supabase/supabase-js';
+import ws from 'ws';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
@@ -28,6 +29,7 @@ if (!SUPABASE_URL || !SERVICE_KEY) {
 
 const sb = createClient(SUPABASE_URL, SERVICE_KEY, {
   auth: { persistSession: false, autoRefreshToken: false },
+  realtime: { transport: ws as unknown as typeof WebSocket },
 });
 
 const DEMO_WORKSPACES = [
