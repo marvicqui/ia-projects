@@ -31,6 +31,8 @@ Módulo de conciliación CFDI ↔ estados de cuenta bancarios.
 
 `scripts/seed.ts` genera 20 CFDIs + 1 CSV BBVA con 10 exact + 3 fuzzy + 2 unmatched.
 
+Para que el matcher detecte dirección (ingreso vs egreso), al correr una conciliación con datos seeded usa **`RFC de tu empresa = MCI260514ABC`** — es el emisor/receptor sintético de "Marvicqui Inc Demo".
+
 ## Pendientes (no críticos)
 
 - [ ] Validación de firma SAT (`node-forge` over `Certificado` + `Sello`) — marcado como opcional en spec
