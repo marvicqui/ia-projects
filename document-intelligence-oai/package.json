@@ -17,6 +17,9 @@
     "teardown": "bash scripts/teardown.sh",
     "format": "prettier --write ."
   },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.105.4"
+  },
   "devDependencies": {
     "@playwright/test": "^1.60.0",
     "@eslint/js": "^10.0.1",
