@@ -23,7 +23,9 @@ export const GET = async (request: Request) => {
   const supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll: () => cookieStore.getAll().map((c) => ({ name: c.name, value: c.value })),
-      setAll: (toSet) => {
+      setAll: (
+        toSet: Array<{ name: string; value: string; options?: Record<string, unknown> }>,
+      ) => {
         for (const c of toSet) {
           // Persistir en el response (esto sí llega al browser en route handlers de Next 15).
           response.cookies.set({
