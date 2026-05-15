@@ -12,8 +12,16 @@ pnpm dev
 pnpm test
 ```
 
+Para provisioning completo:
+
+```bash
+cp .env.example .env.local
+pnpm setup
+```
+
 ## Docs
 
+- Produccion: https://document-intelligence-oai.vercel.app
 - [Arquitectura](docs/ARCHITECTURE.md)
 - [Modulos](docs/MODULES.md)
 - [Deploy](docs/DEPLOYMENT.md)

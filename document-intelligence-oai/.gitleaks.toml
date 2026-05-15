@@ -1,0 +1,12 @@
+title = "Document Intelligence gitleaks config"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Allow empty examples"
+regexes = [
+  '''ANTHROPIC_API_KEY=''',
+  '''OPENAI_API_KEY=''',
+  '''SUPABASE_ACCESS_TOKEN='''
+]
