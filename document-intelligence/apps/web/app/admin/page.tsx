@@ -3,6 +3,7 @@ import { createAdminClient } from '@/lib/admin';
 import { Shell } from '@/components/shell';
 import { AdminAllowedEmails } from '@/components/admin-allowed-emails';
 import { AdminUsers, type AdminUser } from '@/components/admin-users';
+import { AdminTriggerAlerts } from '@/components/admin-trigger-alerts';
 import { formatDateTime } from '@/lib/dates';
 
 interface UserAggregate {
@@ -106,6 +107,8 @@ export default async function AdminPage() {
       </section>
 
       <AdminAllowedEmails initial={allowed} />
+
+      <AdminTriggerAlerts />
 
       <AdminUsers initial={adminUsers} />
 
