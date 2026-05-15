@@ -74,15 +74,16 @@ supabase db push --linked
 
 # ---------- 4. Set platform admin email as DB setting ----------
 log "Configurando platform.admin_email en Postgres…"
-supabase db execute --linked -- \
+supabase db query --linked \
   "alter database postgres set app.platform_admin_email = '$PLATFORM_ADMIN_EMAIL';" || \
   warn "No pude setear app.platform_admin_email — hazlo manualmente desde el SQL editor."
 
 # ---------- 5. Storage bucket ----------
 log "Creando bucket 'documents' privado…"
 # Best-effort; bucket creation via CLI is limited, so we use SQL.
-supabase db execute --linked -- \
-  "insert into storage.buckets (id, name, public) values ('documents', 'documents', false) on conflict (id) do nothing;"
+supabase db query --linked \
+  "insert into storage.buckets (id, name, public) values ('documents', 'documents', false) on conflict (id) do nothing;" || \
+  warn "No pude crear el bucket via CLI — créalo en Storage tab del Dashboard."
 
 # ---------- 6. Fetch Supabase URL + keys ----------
 log "Obteniendo URL y anon key del proyecto…"
