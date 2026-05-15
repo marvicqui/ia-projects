@@ -6,6 +6,7 @@ import { formatDate } from '@/lib/dates';
 import Link from 'next/link';
 import { ContractorDocuments, type DocStatusByType, type ExtractionRow } from './contractor-documents';
 import { ExtractionsHistory } from './extractions-history';
+import { DeleteContractorButton } from './delete-contractor-button';
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -58,19 +59,22 @@ export default async function ContractorDetailPage({ params }: PageProps) {
 
   return (
     <Shell active="/laboral" email={session.email} isPlatformAdmin={session.isPlatformAdmin} workspaceName={session.workspaceName}>
-      <header>
-        <Link href="/laboral" className="text-xs text-zinc-500 hover:underline">
-          ← Volver a contratistas
-        </Link>
-        <h1 className="mt-1 text-3xl font-semibold tracking-tight">{contractor.razon_social}</h1>
-        <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-          RFC: <span className="font-mono">{contractor.rfc}</span>
-          {contractor.contact_email && <> · {contractor.contact_email}</>}
-          {contractor.contact_phone && <> · {contractor.contact_phone}</>}
-        </p>
-        <p className="mt-1 text-xs text-zinc-500">
-          Registrado el {formatDate(contractor.created_at)}
-        </p>
+      <header className="flex items-start justify-between gap-4">
+        <div>
+          <Link href="/laboral" className="text-xs text-zinc-500 hover:underline">
+            ← Volver a contratistas
+          </Link>
+          <h1 className="mt-1 text-3xl font-semibold tracking-tight">{contractor.razon_social}</h1>
+          <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
+            RFC: <span className="font-mono">{contractor.rfc}</span>
+            {contractor.contact_email && <> · {contractor.contact_email}</>}
+            {contractor.contact_phone && <> · {contractor.contact_phone}</>}
+          </p>
+          <p className="mt-1 text-xs text-zinc-500">
+            Registrado el {formatDate(contractor.created_at)}
+          </p>
+        </div>
+        <DeleteContractorButton contractorId={id} contractorName={contractor.razon_social} />
       </header>
 
       <ContractorDocuments
