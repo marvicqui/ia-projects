@@ -1,6 +1,7 @@
 import { createSupabaseServerClient } from '@jvp/shared-db';
 import { parseCfdiXml, parseBankCsv, type BankCode } from '@jvp/module-cfdi';
 import { buildCookieAdapter } from '@/lib/session';
+import { resolveActiveWorkspace } from '@/lib/active-workspace';
 import { NextResponse } from 'next/server';
 
 export const POST = async (request: Request) => {
@@ -11,9 +12,16 @@ export const POST = async (request: Request) => {
   if (!userData.user) {
     return NextResponse.json({ error: 'No autenticado' }, { status: 401 });
   }
-  const workspaceId = getCookie('active_workspace_id');
+  const workspaceId = await resolveActiveWorkspace(
+    supabase,
+    userData.user.id,
+    getCookie('active_workspace_id'),
+  );
   if (!workspaceId) {
-    return NextResponse.json({ error: 'Sin workspace activo' }, { status: 400 });
+    return NextResponse.json(
+      { error: 'No tienes workspace asociado. Recarga la página tras iniciar sesión.' },
+      { status: 400 },
+    );
   }
 
   const form = await request.formData();

@@ -27,7 +27,6 @@ export const GET = async (request: Request) => {
         toSet: Array<{ name: string; value: string; options?: Record<string, unknown> }>,
       ) => {
         for (const c of toSet) {
-          // Persistir en el response (esto sí llega al browser en route handlers de Next 15).
           response.cookies.set({
             name: c.name,
             value: c.value,
@@ -38,12 +37,31 @@ export const GET = async (request: Request) => {
     },
   });
 
-  const { error } = await supabase.auth.exchangeCodeForSession(code);
-  if (error) {
-    console.error('exchangeCodeForSession failed:', error.message);
+  const { error: exchangeErr, data: exchangeData } = await supabase.auth.exchangeCodeForSession(code);
+  if (exchangeErr) {
+    console.error('exchangeCodeForSession failed:', exchangeErr.message);
     return NextResponse.redirect(
-      new URL(`/login?error=${encodeURIComponent(error.message)}`, url.origin),
+      new URL(`/login?error=${encodeURIComponent(exchangeErr.message)}`, url.origin),
     );
+  }
+
+  // Set active_workspace_id cookie. Esto NO se puede hacer desde RSC en Next 15.
+  const userId = exchangeData.user?.id;
+  if (userId) {
+    const { data: member } = await supabase
+      .from('workspace_members')
+      .select('workspace_id')
+      .eq('user_id', userId)
+      .limit(1)
+      .maybeSingle();
+    if (member?.workspace_id) {
+      response.cookies.set({
+        name: 'active_workspace_id',
+        value: member.workspace_id,
+        path: '/',
+        sameSite: 'lax',
+      });
+    }
   }
 
   return response;
