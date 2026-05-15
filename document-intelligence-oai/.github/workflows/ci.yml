@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: document-intelligence-oai/pnpm-lock.yaml
+      - name: Install
+        working-directory: document-intelligence-oai
+        run: pnpm install --frozen-lockfile
+      - name: Lint
+        working-directory: document-intelligence-oai
+        run: pnpm lint
+      - name: Typecheck
+        working-directory: document-intelligence-oai
+        run: pnpm typecheck
+      - name: Unit tests
+        working-directory: document-intelligence-oai
+        run: pnpm test
+      - name: Build
+        working-directory: document-intelligence-oai
+        run: pnpm build

@@ -1,0 +1,9 @@
+{
+  "name": "contractor-portal-reminder",
+  "active": false,
+  "nodes": [],
+  "connections": {},
+  "settings": {
+    "timezone": "America/Mexico_City"
+  }
+}

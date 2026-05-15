@@ -1,0 +1,9 @@
+{
+  "name": "daily-compliance-check",
+  "active": false,
+  "nodes": [],
+  "connections": {},
+  "settings": {
+    "timezone": "America/Mexico_City"
+  }
+}

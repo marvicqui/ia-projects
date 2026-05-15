@@ -1,0 +1,1 @@
+-- Synthetic data is loaded by scripts/seed.ts after the schema exists.

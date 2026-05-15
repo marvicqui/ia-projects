@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "noEmit": true,
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./*"],
+      "@marvicqui/shared-auth": ["../../packages/shared-auth/src/index.ts"],
+      "@marvicqui/shared-db": ["../../packages/shared-db/src/index.ts"],
+      "@marvicqui/shared-ui": ["../../packages/shared-ui/src/index.ts"],
+      "@marvicqui/shared-agents": ["../../packages/shared-agents/src/index.ts"],
+      "@marvicqui/shared-notifications": ["../../packages/shared-notifications/src/index.ts"],
+      "@marvicqui/cfdi": ["../../packages/modules/cfdi/src/index.ts"],
+      "@marvicqui/laboral": ["../../packages/modules/laboral/src/index.ts"],
+      "@marvicqui/contratos": ["../../packages/modules/contratos/src/index.ts"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules"]
+}

@@ -1,0 +1,9 @@
+{
+  "name": "weekly-summary-email",
+  "active": false,
+  "nodes": [],
+  "connections": {},
+  "settings": {
+    "timezone": "America/Mexico_City"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "name": "@marvicqui/cfdi",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint --config ../../../eslint.config.mjs src",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run src"
+  },
+  "dependencies": {
+    "@marvicqui/shared-agents": "workspace:*",
+    "@marvicqui/shared-db": "workspace:*",
+    "fast-xml-parser": "^5.8.0",
+    "xlsx-populate": "^1.21.0",
+    "zod": "^3.25.76"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.6"
+  }
+}

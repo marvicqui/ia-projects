@@ -1,0 +1,41 @@
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: document-intelligence-oai/pnpm-lock.yaml
+      - name: Install
+        working-directory: document-intelligence-oai
+        run: pnpm install --frozen-lockfile
+      - name: Supabase migrations
+        working-directory: document-intelligence-oai
+        env:
+          SUPABASE_ACCESS_TOKEN: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+          SUPABASE_PROJECT_ID: ${{ secrets.SUPABASE_PROJECT_ID }}
+        run: pnpm dlx supabase@latest db push --project-ref "$SUPABASE_PROJECT_ID"
+      - name: Deploy to Vercel
+        working-directory: document-intelligence-oai
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: pnpm dlx vercel@latest deploy --prod --token "$VERCEL_TOKEN"
+      - name: Smoke test
+        working-directory: document-intelligence-oai
+        env:
+          NEXT_PUBLIC_APP_URL: ${{ vars.NEXT_PUBLIC_APP_URL }}
+        run: pnpm smoke
