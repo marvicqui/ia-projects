@@ -4,6 +4,7 @@ import { createSupabaseServerClient } from '@jvp/shared-db';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { MatchesTable, type MatchRow, type UnmatchedCfdi, type UnmatchedTx } from './matches-table';
+import { formatDateTime } from '@/lib/dates';
 
 interface ReconciliationPageProps {
   params: Promise<{ id: string }>;
@@ -146,8 +147,8 @@ export default async function ReconciliationDetailPage({ params }: Reconciliatio
           </Link>
           <h1 className="mt-1 text-3xl font-semibold tracking-tight">{recon.name}</h1>
           <p className="mt-1 text-sm text-zinc-600 dark:text-zinc-400">
-            {new Date(recon.started_at).toLocaleString('es-MX')}
-            {recon.completed_at && ` · completada ${new Date(recon.completed_at).toLocaleString('es-MX')}`}
+            {formatDateTime(recon.started_at)}
+            {recon.completed_at && ` · completada ${formatDateTime(recon.completed_at)}`}
           </p>
         </div>
         <a

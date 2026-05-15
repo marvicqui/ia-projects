@@ -1,6 +1,7 @@
 import { requireAppSession, buildCookieAdapter } from '@/lib/session';
 import { Shell } from '@/components/shell';
 import { createSupabaseServerClient } from '@jvp/shared-db';
+import { formatDateTime } from '@/lib/dates';
 import Link from 'next/link';
 
 export default async function CfdiHomePage() {
@@ -66,7 +67,7 @@ export default async function CfdiHomePage() {
                     <td className="px-4 py-2 text-right tabular-nums">{s.matchedLlm ?? 0}</td>
                     <td className="px-4 py-2 text-right tabular-nums">{s.unmatchedTransactions ?? 0}</td>
                     <td className="px-4 py-2 text-xs text-zinc-500">
-                      {new Date(r.started_at).toLocaleString('es-MX')}
+                      {formatDateTime(r.started_at)}
                     </td>
                   </tr>
                 );

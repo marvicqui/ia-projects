@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { formatDate } from '@/lib/dates';
 
 interface AllowedEmail {
   id: string;
@@ -104,7 +105,7 @@ export const AdminAllowedEmails = ({ initial }: Props) => {
                 <td className="px-4 py-2 font-mono text-xs">{i.email}</td>
                 <td className="px-4 py-2 text-xs text-zinc-500">{i.notes ?? '—'}</td>
                 <td className="px-4 py-2 text-xs text-zinc-500">
-                  {new Date(i.created_at).toLocaleDateString('es-MX')}
+                  {formatDate(i.created_at)}
                 </td>
                 <td className="px-4 py-2 text-right">
                   <button

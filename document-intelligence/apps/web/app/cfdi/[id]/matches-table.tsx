@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react';
 import { useRouter } from 'next/navigation';
+import { formatDate as fmtDateImpl } from '@/lib/dates';
 
 type MatchType = 'exact' | 'fuzzy' | 'llm_inferred' | 'manual';
 type ReviewStatus = 'auto' | 'pending' | 'confirmed' | 'rejected';
@@ -92,7 +93,7 @@ const STATUS_COLORS: Record<ReviewStatus, string> = {
 const fmtMoney = (n: number): string =>
   new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(n);
 
-const fmtDate = (s: string): string => new Date(s).toLocaleDateString('es-MX');
+const fmtDate = (s: string): string => fmtDateImpl(s);
 
 export const MatchesTable = ({ matches, unmatchedCfdis, unmatchedTxs, reconciliationId }: Props) => {
   const router = useRouter();

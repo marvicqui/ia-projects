@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from 'react';
 import { useRouter } from 'next/navigation';
+import { formatDate } from '@/lib/dates';
 
 export interface AdminUser {
   id: string;
@@ -106,7 +107,7 @@ export const AdminUsers = ({ initial }: Props) => {
                   </button>
                 </td>
                 <td className="px-4 py-2 text-xs text-zinc-500">
-                  {new Date(u.created_at).toLocaleDateString('es-MX')}
+                  {formatDate(u.created_at)}
                 </td>
                 <td className="px-4 py-2 text-right">
                   <button

@@ -3,6 +3,7 @@ import { createAdminClient } from '@/lib/admin';
 import { Shell } from '@/components/shell';
 import { AdminAllowedEmails } from '@/components/admin-allowed-emails';
 import { AdminUsers, type AdminUser } from '@/components/admin-users';
+import { formatDateTime } from '@/lib/dates';
 
 interface UserAggregate {
   workspace_count: number;
@@ -125,7 +126,7 @@ export default async function AdminPage() {
                   <td className="px-4 py-2">{w.name as string}</td>
                   <td className="px-4 py-2 text-xs text-zinc-500">{w.slug as string}</td>
                   <td className="px-4 py-2 text-xs text-zinc-500">
-                    {new Date(w.created_at as string).toLocaleString('es-MX')}
+                    {formatDateTime(w.created_at as string)}
                   </td>
                 </tr>
               ))}
