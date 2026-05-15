@@ -213,6 +213,10 @@ importers:
         version: 2.1.9(@types/node@22.19.19)(jsdom@25.0.1)(lightningcss@1.32.0)
 
   packages/modules/laboral:
+    dependencies:
+      '@jvp/shared-agents':
+        specifier: workspace:*
+        version: link:../../shared-agents
     devDependencies:
       typescript:
         specifier: ^5.7.0

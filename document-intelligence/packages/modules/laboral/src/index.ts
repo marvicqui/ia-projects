@@ -1,2 +1,3 @@
-// @jvp/module-laboral — stub. See packages/modules/laboral/README.md for scope.
-export const placeholder = 'module-laboral';
+export * from './types';
+export { extractLaboralDoc, type ExtractInput } from './extractors';
+export { computeComplianceLevel, COMPLIANCE_LABELS } from './compliance';
